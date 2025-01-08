@@ -1,4 +1,5 @@
 import os
+import json
 import pandas as pd
 import streamlit as st
 from google.oauth2.service_account import Credentials
@@ -7,19 +8,23 @@ from charset_normalizer import detect
 from googleapiclient.errors import HttpError
 import datetime
 
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+# Accede a las credenciales almacenadas en Streamlit Secrets
+SERVICE_ACCOUNT_INFO = st.secrets["gcp_service_account"]
 
+# Cargar las credenciales del archivo JSON desde los secrets
+creds = Credentials.from_service_account_info(json.loads(SERVICE_ACCOUNT_INFO), scopes=['https://www.googleapis.com/auth/spreadsheets'])
 
 # Configuración de Google Sheets
-SERVICE_ACCOUNT_FILE = "proyecto-tarot-446717-d0d39be9190f.json"
 SPREADSHEET_ID = '17JNssIIZDMUpspZl1F1HXMJLBehNQKFf9Ke4KD2WkT8'
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+
+# Configuración de las rutas
 DORSO_PATH = "cards/Dorso.png"
 CARPETA_CARTAS = "cards"
 
 # Función para conectar con Google Sheets
 def conectar_google_sheets():
     try:
-        creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
         service = build('sheets', 'v4', credentials=creds)
         
         # Agregar un mensaje para confirmar que la autenticación fue exitosa
