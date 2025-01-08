@@ -13,8 +13,8 @@ import datetime
 SERVICE_ACCOUNT_FILE = "proyecto-tarot-446717-d0d39be9190f.json"
 SPREADSHEET_ID = '17JNssIIZDMUpspZl1F1HXMJLBehNQKFf9Ke4KD2WkT8'
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-DORSO_PATH = "cards\\Dorso.png"
-CARPETA_CARTAS = "cards\\"
+DORSO_PATH = "cards/Dorso.png"
+CARPETA_CARTAS = "cards"
 
 # Función para conectar con Google Sheets
 def conectar_google_sheets():
