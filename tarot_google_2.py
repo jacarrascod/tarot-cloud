@@ -10,11 +10,11 @@ import datetime
 
 
 # Configuración de Google Sheets
-SERVICE_ACCOUNT_FILE = "C:\\Users\\jacar\\OneDrive\\Escritorio\\Proyectos software jacarrascod\\Proyecto tarot\\Proyecto tarot Cloud\\credentials\\proyecto-tarot-446717-d0d39be9190f.json"
+SERVICE_ACCOUNT_FILE = "proyecto-tarot-446717-d0d39be9190f.json"
 SPREADSHEET_ID = '17JNssIIZDMUpspZl1F1HXMJLBehNQKFf9Ke4KD2WkT8'
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-DORSO_PATH = "C:\\Users\\jacar\\OneDrive\\Escritorio\\Proyectos software jacarrascod\\Proyecto tarot\\cards\\Dorso.png"
-CARPETA_CARTAS = "C:\\Users\\jacar\\OneDrive\\Escritorio\\Proyectos software jacarrascod\\Proyecto tarot\\cards"
+DORSO_PATH = "cards\\Dorso.png"
+CARPETA_CARTAS = "cards\\"
 
 # Función para conectar con Google Sheets
 def conectar_google_sheets():
@@ -165,7 +165,7 @@ def detectar_codificacion(filepath):
     return result['encoding']
 # Cargar datos del tarot
 def cargar_tarot():
-    data_path = "C:\\Users\\jacar\\OneDrive\\Escritorio\\Proyectos software jacarrascod\\Proyecto tarot\\cartas_bdd.csv"
+    data_path = "cartas_bdd.csv"
     if os.path.exists(data_path):
         return pd.read_csv(data_path, delimiter=";", encoding=detectar_codificacion(data_path))
     else:
