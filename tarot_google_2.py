@@ -9,7 +9,6 @@ from googleapiclient.errors import HttpError
 import datetime
 import pytz
 
-lima_tz = pytz.timezone('America/Lima')
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 # Accede a las credenciales almacenadas en Streamlit Secrets
 SERVICE_ACCOUNT_INFO = st.secrets["gcp_service_account"]
@@ -135,10 +134,12 @@ def guardar_datos_usuario(service, nombre, correo, carta):
         # Verificar si el DataFrame no está vacío y si el correo ya existe
         if not df.empty and correo in df["email_usuario"].values:
             return  # El correo ya está registrado
+    # Obtener el timestamp actual en UTC y convertirlo a la zona horaria local
+    lima_tz = pytz.timezone('America/Lima')
+    utc_now = datetime.datetime.now(pytz.utc)  # Timestamp actual en UTC
+    timestamp = utc_now.astimezone(lima_tz).strftime("%Y-%m-%d %H:%M:%S")  # Convertir a hora local y formatear
     
     # Si el correo no está registrado, agregar el nuevo usuario con el timestamp
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # Obtener el timestamp actual
-    timestamp=timestamp.replace(tzinfo=pytz.utc).astime(lima_tz)
     nuevo_usuario = [nombre, correo, carta, timestamp]  # Añadir el timestamp como cuarta columna
     values = [nuevo_usuario]
     
