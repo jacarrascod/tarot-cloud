@@ -7,7 +7,9 @@ from googleapiclient.discovery import build
 from charset_normalizer import detect
 from googleapiclient.errors import HttpError
 import datetime
+import pytz
 
+lima_tz = pytz.timezone('America/Lima')
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 # Accede a las credenciales almacenadas en Streamlit Secrets
 SERVICE_ACCOUNT_INFO = st.secrets["gcp_service_account"]
@@ -136,6 +138,7 @@ def guardar_datos_usuario(service, nombre, correo, carta):
     
     # Si el correo no está registrado, agregar el nuevo usuario con el timestamp
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # Obtener el timestamp actual
+    timestamp=timestamp.replace(tzinfo=pytz.utc).astime(lima_tz)
     nuevo_usuario = [nombre, correo, carta, timestamp]  # Añadir el timestamp como cuarta columna
     values = [nuevo_usuario]
     
