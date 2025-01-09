@@ -11,9 +11,9 @@ import datetime
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 # Accede a las credenciales almacenadas en Streamlit Secrets
 SERVICE_ACCOUNT_INFO = st.secrets["gcp_service_account"]
-
+print(f"SERVICE_ACCOUNT_INFO es tipo: ",type(SERVICE_ACCOUNT_INFO))  # Debería imprimir "<class 'dict'>"
 # Cargar las credenciales del archivo JSON desde los secrets
-creds = Credentials.from_service_account_info(json.loads(SERVICE_ACCOUNT_INFO), scopes=['https://www.googleapis.com/auth/spreadsheets'])
+creds = Credentials.from_service_account_info(SERVICE_ACCOUNT_INFO, scopes=['https://www.googleapis.com/auth/spreadsheets'])
 
 # Configuración de Google Sheets
 SPREADSHEET_ID = '17JNssIIZDMUpspZl1F1HXMJLBehNQKFf9Ke4KD2WkT8'
